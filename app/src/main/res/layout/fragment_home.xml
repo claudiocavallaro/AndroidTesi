@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="9dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textHome1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textSize="20dp"
+        android:text="Scopri cosa stai ascoltando"/>
+
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/textHome1"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="50dp"
+        android:id="@+id/ico_mic"
+        android:background="@mipmap/ico_mic_circle_round" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textElapsedTime"
+        android:text=""
+        android:layout_toRightOf="@+id/ico_mic"
+        android:layout_below="@+id/textHome1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="65dp"/>
+
+    <TextView
+        android:id="@+id/textVol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textElapsedTime"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toRightOf="@id/ico_mic"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/textRes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textVol"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/ico_mic"
+        android:text="" />
+
+    <View
+        android:layout_width="match_parent"
+        android:id="@+id/viewLayout"
+        android:layout_height="1dp"
+        android:layout_below="@id/ico_mic"
+        android:layout_marginTop="25dp"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/musicTitle"
+        android:text=""
+        android:layout_marginLeft="9dp"
+        android:layout_below="@+id/viewLayout"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/musicArtist"
+        android:layout_marginLeft="9dp"
+        android:layout_below="@id/musicTitle"
+        android:layout_marginTop="10dp"
+        android:text="" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/musicArtist"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        android:id="@+id/ratingbar"
+        android:numStars="5"
+        android:rating="0"
+        android:stepSize="1.0"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_draw"
+        android:shadowColor="@color/primaryDarkColor"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="0"
+        android:text="Conferma"
+        android:textColor="#FFFFFF" />
+
+
+</RelativeLayout>
