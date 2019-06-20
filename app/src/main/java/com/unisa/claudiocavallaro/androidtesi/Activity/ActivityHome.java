@@ -2,7 +2,6 @@ package com.unisa.claudiocavallaro.androidtesi.Activity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -21,7 +20,9 @@ import com.acrcloud.rec.ACRCloudConfig;
 import com.acrcloud.rec.ACRCloudResult;
 import com.acrcloud.rec.IACRCloudListener;
 import com.acrcloud.rec.utils.ACRCloudLogger;
+import com.unisa.claudiocavallaro.androidtesi.Model.ApiKeys;
 import com.unisa.claudiocavallaro.androidtesi.Model.Preferenza;
+import com.unisa.claudiocavallaro.androidtesi.Persistence.Communicator;
 import com.unisa.claudiocavallaro.androidtesi.R;
 
 import org.json.JSONArray;
@@ -37,22 +38,29 @@ public class ActivityHome extends AppCompatActivity implements IACRCloudListener
     private TextView mVolume, mResult, tv_time, tv_title, tv_artist;
 
     private boolean mProcessing = false;
-    private boolean mAutoRecognizing = false;
     private boolean initState = false;
+
+    private Preferenza p;
 
     private Button conferma;
 
-    private RatingBar ratingBar;
+    private Communicator communicator;
 
-    private MediaPlayer mediaPlayer = new MediaPlayer();
-    private boolean isPlaying = false;
+    private RatingBar ratingBar;
 
     private String path = "";
 
     private long startTime = 0;
     private long stopTime = 0;
 
-    private final int PRINT_MSG = 1001;
+    public Preferenza getP() {
+        return p;
+    }
+
+    public void setP(Preferenza p) {
+        this.p = p;
+    }
+
 
     private ACRCloudConfig mConfig = null;
     private ACRCloudClient mClient = null;
@@ -62,6 +70,9 @@ public class ActivityHome extends AppCompatActivity implements IACRCloudListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        communicator = new Communicator();
+
+        communicator.getKey(this);
 
         path = Environment.getExternalStorageDirectory().toString()
                 + "/acrcloud";
@@ -100,9 +111,7 @@ public class ActivityHome extends AppCompatActivity implements IACRCloudListener
         this.mConfig.context = this;
 
         // Please create project in "http://console.acrcloud.cn/service/avr".
-        this.mConfig.host = "identify-eu-west-1.acrcloud.com";
-        this.mConfig.accessKey = "d4d377f0c6947376606087d7c765a228";
-        this.mConfig.accessSecret = "IHA8k41R2Iv24nmEtRTABtcRH2x1Fbw5IQ57fJwO";
+
 
         this.mConfig.recorderConfig.isVolumeCallback = true;
 
@@ -135,7 +144,20 @@ public class ActivityHome extends AppCompatActivity implements IACRCloudListener
     public void reset() {
         tv_time.setText("");
         mResult.setText("");
+        tv_artist.setText("");
+        tv_title.setText("");
+        ratingBar.setRating(0);
         mProcessing = false;
+    }
+
+    public void setErrorView(){
+        this.setContentView(R.layout.activity_error);
+    }
+
+    public void setKey(ApiKeys apiKeys){
+        this.mConfig.host = apiKeys.getHost();
+        this.mConfig.accessKey = apiKeys.getAccessKey();
+        this.mConfig.accessSecret = apiKeys.getAccessSecret();
     }
 
     @Override
@@ -160,11 +182,12 @@ public class ActivityHome extends AppCompatActivity implements IACRCloudListener
         try {
             JSONObject j = new JSONObject(result);
             JSONObject j1 = j.getJSONObject("status");
+            p = new Preferenza();
             int j2 = j1.getInt("code");
             //il codice è zero quando trova la canzone
             if(j2 == 0){
                 JSONObject metadata = j.getJSONObject("metadata");
-                //
+
                 if (metadata.has("music")) {
                     JSONArray musics = metadata.getJSONArray("music");
 
@@ -186,6 +209,7 @@ public class ActivityHome extends AppCompatActivity implements IACRCloudListener
 
                         System.out.println("--------" + track.getString("id"));
 
+                        p.setId(track.getString("id"));
                         tres = tres + (i+1) + ".  Title: " + title + "    Artist: " + artist + "\n";
 
                         // CREAZIONE OGGETTO
@@ -206,12 +230,18 @@ public class ActivityHome extends AppCompatActivity implements IACRCloudListener
                     @Override
                     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
 
+                        p.setRatingString(String.valueOf(rating));
+
+
                     }
                 });
 
                 conferma.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        String id = p.getId();
+                        String rating = p.getRatingString();
+                        useGet(id, rating);
 
                     }
                 });
@@ -233,6 +263,11 @@ public class ActivityHome extends AppCompatActivity implements IACRCloudListener
 
 
 
+    }
+
+    private void useGet(String id, String rating) {
+        communicator.getPref(this, id, rating);
+        Toast.makeText(this, "Grazie per aver votato", Toast.LENGTH_LONG).show();
     }
 
     @Override

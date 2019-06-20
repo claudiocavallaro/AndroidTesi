@@ -12,22 +12,31 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+
+    <uses-permission-sdk-23 android:name="android.permission.INTERNET"/>
+    <uses-permission-sdk-23 android:name="android.permission.RECORD_AUDIO"/>
+
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="   "
+        android:icon="@mipmap/launcher"
+        android:label="Shazgym"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".Activity.ActivityHome"
-            android:label="@string/title_activity_main_nav">
+            android:name=".Activity.ActivityInit"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
 
+        <activity
+            android:name=".Activity.ActivityHome"
+            android:label="Vota la tua musica"
+            android:screenOrientation="portrait">
         </activity>
 
     </application>

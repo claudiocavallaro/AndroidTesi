@@ -1,4 +1,4 @@
-package com.unisa.claudiocavallaro.androidtesi.Activity;
+package com.unisa.claudiocavallaro.androidtesi.notused;
 
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;

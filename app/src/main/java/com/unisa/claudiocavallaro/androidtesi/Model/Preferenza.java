@@ -1,39 +1,42 @@
 package com.unisa.claudiocavallaro.androidtesi.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Preferenza {
 
-    private String title;
-    private String artist;
 
+    @SerializedName("id")
     private String id;
+    @SerializedName("pref")
     private String ratingString;
 
-    private int rating;
+    private long timestamp;
 
 
     public Preferenza(){}
 
-    public String getTitle() {
-        return title;
+
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public String getArtist() {
-        return artist;
+    public String getId() {
+        return id;
     }
 
-    public void setArtist(String artist) {
-        this.artist = artist;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public int getRating() {
-        return rating;
+    public String getRatingString() {
+        return ratingString;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
+    public void setRatingString(String ratingString) {
+        this.ratingString = ratingString;
     }
 }

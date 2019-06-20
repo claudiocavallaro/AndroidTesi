@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_margin="30dp"
+        android:id="@+id/textInit"
+        android:layout_centerHorizontal="true"
+        android:text="Inserisci la password che ti è stata fornita"/>
+
+
+    <EditText
+        android:layout_below="@+id/textInit"
+        android:id="@+id/editInit"
+        android:layout_margin="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:inputType="text"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:layout_weight="1"/>
+
+
+    <Button
+        android:id="@+id/buttonInit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_draw"
+        android:shadowColor="@color/primaryDarkColor"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="0"
+        android:text="Conferma"
+        android:textColor="#FFFFFF" />
+</RelativeLayout>
